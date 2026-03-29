@@ -1,0 +1,19 @@
+git clone https://github.com/Kiranism/next-shadcn-dashboard-starter.git
+cd next-shadcn-dashboard-starter
+volta pin node@22
+npm install
+cp env.example.txt .env.local
+
+node scripts/cleanup.js --list
+node scripts/cleanup.js clerk kanban chat examples themes sentry
+rm scripts/cleanup.js
+
+npm install lucide-react
+
+(npx shadcn@latest add alert)
+
+find src/app -name "page.tsx" -type f
+grep -rn "overview" src/config/
+sed -i "s|url: '/dashboard/overview'|url: '/dashboard'|" src/config/nav-config.ts
+
+npm run dev
